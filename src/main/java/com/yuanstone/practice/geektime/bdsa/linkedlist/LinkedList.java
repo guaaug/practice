@@ -57,6 +57,47 @@ public class LinkedList {
         }
     }
 
+    // 删除链表倒数第k个节点
+    public static void deleteLastKth (Node list, int k) {
+        if (k <= 0 || list == null) {
+            return;
+        }
+        Node fast = list;
+        for (int i = 1; i < k; i++) {
+            fast = fast.getNext();
+            if (fast == null) {
+                return;
+            }
+        }
+        Node slow = list;
+        Node pre = null;
+        while (fast.getNext() != null) {
+            fast = fast.getNext();
+            pre = slow;
+            slow = slow.getNext();
+        }
+        if (pre == null) {
+            list = list.getNext();
+        } else {
+            pre.setNext(pre.getNext().getNext());
+        }
+    }
+
+    // 求链表的中间节点
+    public static Node getMiddle (Node list) {
+        if (list == null) {
+            return null;
+        }
+        Node fast = list;
+        Node slow = list;
+        while (fast.getNext() != null && fast.getNext().getNext() != null) {
+            slow = slow.getNext();
+            fast = fast.getNext().getNext();
+        }
+        // 链表偶数节点时，返回了中间两个节点离头结点较近的一个
+        return slow;
+    }
+
 
     public static Node test (Node list) {
         Node current = list, pre = null;
