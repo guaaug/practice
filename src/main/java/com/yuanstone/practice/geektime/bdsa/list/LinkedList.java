@@ -1,12 +1,12 @@
-package com.yuanstone.practice.geektime.bdsa.linkedlist;
+package com.yuanstone.practice.geektime.bdsa.list;
 
-import lombok.Data;
+import com.yuanstone.practice.geektime.bdsa.structure.ListNode;
 
 public class LinkedList {
 
     // 单链表反转
-    public static Node reverse (Node list) {
-        Node current = list, pre = null, next;
+    public static ListNode reverse (ListNode list) {
+        ListNode current = list, pre = null, next;
         while (current != null) {
             next = current.getNext();
             current.setNext(pre);
@@ -17,8 +17,8 @@ public class LinkedList {
     }
 
     // 单链表检测环
-    public static boolean checkCircle (Node list) {
-        Node one = list, two = list;
+    public static boolean checkCircle (ListNode list) {
+        ListNode one = list, two = list;
         while (two != null) {
             one = one.getNext();
             two = (two.getNext() == null ? null : two.getNext().getNext());
@@ -30,14 +30,14 @@ public class LinkedList {
     }
 
     // 有序链表合并
-    public static Node merge (Node list1, Node list2) {
+    public static ListNode merge (ListNode list1, ListNode list2) {
         if (list1 == null) {
             return list2;
         } else if (list2 == null) {
             return list1;
         } else {
-            Node merge = new Node();
-            Node pos = merge;
+            ListNode merge = new ListNode();
+            ListNode pos = merge;
             while (list1 != null && list2 != null) {
                 if (list1.getData() <= list2.getData()) {
                     pos.setNext(list1);
@@ -58,19 +58,19 @@ public class LinkedList {
     }
 
     // 删除链表倒数第k个节点
-    public static void deleteLastKth (Node list, int k) {
+    public static void deleteLastKth (ListNode list, int k) {
         if (k <= 0 || list == null) {
             return;
         }
-        Node fast = list;
+        ListNode fast = list;
         for (int i = 1; i < k; i++) {
             fast = fast.getNext();
             if (fast == null) {
                 return;
             }
         }
-        Node slow = list;
-        Node pre = null;
+        ListNode slow = list;
+        ListNode pre = null;
         while (fast.getNext() != null) {
             fast = fast.getNext();
             pre = slow;
@@ -84,12 +84,12 @@ public class LinkedList {
     }
 
     // 求链表的中间节点
-    public static Node getMiddle (Node list) {
+    public static ListNode getMiddle (ListNode list) {
         if (list == null) {
             return null;
         }
-        Node fast = list;
-        Node slow = list;
+        ListNode fast = list;
+        ListNode slow = list;
         while (fast.getNext() != null && fast.getNext().getNext() != null) {
             slow = slow.getNext();
             fast = fast.getNext().getNext();
@@ -99,8 +99,8 @@ public class LinkedList {
     }
 
 
-    public static Node test (Node list) {
-        Node current = list, pre = null;
+    public static ListNode test (ListNode list) {
+        ListNode current = list, pre = null;
         while (current != null) {
             list = list.getNext();
             current.setNext(pre);
@@ -109,10 +109,4 @@ public class LinkedList {
         }
         return pre;
     }
-}
-
-@Data
-class Node {
-    private Node next;
-    private int data;
 }
