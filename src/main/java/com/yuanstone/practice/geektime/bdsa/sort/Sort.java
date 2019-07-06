@@ -9,8 +9,8 @@ public class Sort {
 //        printArray(array);
 //        printArray(array2);
 
-        selectionSort(array);
-        selectionSort(array2);
+        quickSort(array);
+        quickSort(array2);
 
         printArray(array);
         printArray(array2);
@@ -80,6 +80,131 @@ public class Sort {
                 array[index] = temp;
             }
         }
+    }
+
+    // 归并排序
+    public static void mergeSort (int[] array) {
+        if (array == null || array.length <= 1) {
+            return;
+        }
+        mergeSort(array, 0, array.length - 1);
+    }
+
+    private static void mergeSort (int[] array, int start, int end) {
+        if (start >= end) {
+            // 已拆分到最小粒度
+            return;
+        }
+        // 取中位数
+        int middle = (start + end) / 2;
+        // 分治
+        mergeSort(array, start, middle);
+        mergeSort(array, middle + 1, end);
+        // 归并
+        // merge(array, start, middle, end);
+        mergeWithSentry(array, start, middle, end);
+    }
+
+    private static void merge (int[] array, int start, int middle, int end) {
+        int[] temp = new int[end - start + 1];
+        int i = 0;
+        int left = start;
+        int right = middle + 1;
+        while (left <= middle && right <= end) {
+            if (array[left] <= array[right]) {
+                temp[i++] = array[left++];
+            } else {
+                temp[i++] = array[right++];
+            }
+        }
+        while (left <= middle) {
+            temp[i++] = array[left++];
+        }
+        while (right <= end) {
+            temp[i++] = array[right++];
+        }
+        for (i = 0; i <= end - start; i++) {
+            array[i + start] = temp[i];
+        }
+    }
+
+    private static void mergeWithSentry (int[] array, int start, int middle, int end) {
+        // 复制左右子数组
+        int[] left = new int[middle - start + 2];
+        int[] right = new int[end - middle + 1];
+        for (int i = 0; i <= middle - start; i++) {
+            left[i] = array[start + i];
+        }
+        for (int i = 0; i < end - middle; i++) {
+            right[i] = array[middle + 1 + i];
+        }
+        // 哨兵位
+        left[middle - start + 1] = Integer.MAX_VALUE;
+        right[end - middle] = Integer.MAX_VALUE;
+        // 归并
+        int i = 0, j = 0, k = start;
+        while (k <= end) {
+            if (left[i] <= right[j]) {
+                array[k++] = left[i++];
+            } else {
+                array[k++] = right[j++];
+            }
+        }
+    }
+
+    // 快速排序
+    public static void quickSort (int[] array) {
+        if (array == null || array.length <= 1) {
+            return;
+        }
+        quickSort(array, 0, array.length - 1);
+    }
+
+    private static void quickSort (int[] array, int start, int end) {
+        if (start >= end) {
+            // 已拆分到最小粒度
+            return;
+        }
+        // 根据pivot，移动元素并找到分割点
+        // int index = partition(array, start, end);
+        int index = partition2(array, start, end);
+        // 分治
+        quickSort(array, start, index - 1);
+        quickSort(array, index + 1, end);
+    }
+
+    private static int partition (int[] array, int start, int end) {
+        int pivot = array[end];
+        int i = start;
+        for (int j = start; j < end; j++) {
+            if (array[j] < pivot && j != i) {
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+                i++;
+            }
+        }
+        int temp = array[i];
+        array[i] = array[end];
+        array[end] = temp;
+        return i;
+    }
+
+    private static int partition2 (int[] array, int start, int end) {
+        int pivot = array[start];
+        int left = start, right = end;
+        while (left < right) {
+            while (left < right && array[right] >= pivot) {
+                right--;
+            }
+            array[left] = array[right];
+            while (left < right && array[left] <= pivot) {
+                left++;
+            }
+            array[right] = array[left];
+        }
+        array[left] = pivot;
+        return left;
     }
 
     private static void printArray (int[] array) {
