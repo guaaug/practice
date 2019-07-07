@@ -9,8 +9,8 @@ public class Sort {
 //        printArray(array);
 //        printArray(array2);
 
-        quickSort(array);
-        quickSort(array2);
+        countingSort(array);
+        countingSort(array2);
 
         printArray(array);
         printArray(array2);
@@ -205,6 +205,43 @@ public class Sort {
         }
         array[left] = pivot;
         return left;
+    }
+
+    // 基数排序
+    // 要求：待排序数字为非负整数
+    // 适用于，数值范围较小，数字个数较多的场景
+    public static void countingSort (int[] array) {
+        if (array == null || array.length <= 1) {
+            return;
+        }
+        int length = array.length;
+        // 寻找最大值
+        int max = array[0];
+        for (int i = 0; i < length; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+        }
+        // 计数数组
+        int counting[] = new int[max + 1];
+        for (int i = 0; i < length; i++) {
+            counting[array[i]]++;
+        }
+        // 一次累加
+        for (int i = 1; i <= max; i++) {
+            counting[i] = counting[i - 1] + counting[i];
+        }
+        // 临时数组，存放排序后数据
+        int temp[] = new int[length];
+        for (int i = length - 1; i >= 0; i--) {
+            int index = counting[array[i]] - 1;
+            temp[index] = array[i];
+            counting[array[i]]--;
+        }
+        // 拷贝数组
+        for (int i = 0; i < length; i++) {
+            array[i] = temp[i];
+        }
     }
 
     private static void printArray (int[] array) {
