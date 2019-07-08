@@ -20,7 +20,6 @@ public class Search {
 
         while (low <= high) {
             int middle = low + (high - low) / 2;
-            System.out.println("low=" + low + " middle=" + middle + " high=" + high);
             if (array[middle] == value) {
                 return middle;
             } else if (array[middle] > value) {
