@@ -1,4 +1,4 @@
-package com.yuanstone.practice.geektime.bdsa.sort;
+package com.yuanstone.practice.geektime.bdsa.algorithm;
 
 public class Sort {
 
@@ -244,7 +244,7 @@ public class Sort {
         }
     }
 
-    private static void printArray (int[] array) {
+    public static void printArray (int[] array) {
         if (array == null || array.length == 0) {
             System.out.println("empty array");
         } else {
