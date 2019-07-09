@@ -33,7 +33,7 @@ public class Search {
         System.out.println(index);
 
         // --------------------
-        int[] a3 = {6, 8, 10, 1, 3, 5};
+        int[] a3 = {4, 5, 6, 7, 0, 1, 2};
         Sort.printArray(a3);
 
         index = binarySearch4Circle(a3, 3);
@@ -220,6 +220,12 @@ public class Search {
             int middle = low + ((high - low) >> 1);
             if (array[middle] == value) {
                 return middle;
+            }
+            if (array[low] == array[middle]) {
+                if (middle == array.length - 1 || array[middle + 1] != value) {
+                    return -1;
+                }
+                return middle + 1;
             } else if (array[low] < array[middle]) {
                 // low 半部分数组有序
                 if (value >= array[low] && value < array[middle]) {
