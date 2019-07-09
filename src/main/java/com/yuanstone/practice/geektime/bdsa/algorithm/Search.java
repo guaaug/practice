@@ -127,8 +127,11 @@ public class Search {
         }
         System.out.println("low " + low + " high " + high);
 
-        if (low < array.length && array[low] == value) return low;
-        else return -1;
+        if (low < array.length && array[low] == value) {
+            return low;
+        } else {
+            return -1;
+        }
     }
 
 
