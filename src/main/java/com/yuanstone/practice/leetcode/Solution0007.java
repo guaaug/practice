@@ -67,21 +67,14 @@ public class Solution0007 {
     }
 
     public static int reverse2 (int x) {
-        int ans = 0;
-        int i = 1;
+        int ans = 0, pre = 0;
         while (x != 0) {
-            int num = x % 10;
-            if (i < 10) {
-                ans = ans * 10 + num;
-            } else {
-                int temp = ans * 10 + num;
-                if (temp / 10 != ans) {
-                    return 0;
-                }
-                ans = temp;
-            }
+            pre = ans;
+            ans = ans * 10 + x % 10;
             x /= 10;
-            i++;
+        }
+        if (ans / 10 != pre) {
+            return 0;
         }
         return ans;
     }
