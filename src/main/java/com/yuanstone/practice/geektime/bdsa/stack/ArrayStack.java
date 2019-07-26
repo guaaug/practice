@@ -1,7 +1,5 @@
 package com.yuanstone.practice.geektime.bdsa.stack;
 
-import org.omg.CORBA.Object;
-
 // 顺序栈实现
 public class ArrayStack<T> {
     private T[] stack;      // 栈数组

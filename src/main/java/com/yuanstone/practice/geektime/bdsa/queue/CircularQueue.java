@@ -1,7 +1,5 @@
 package com.yuanstone.practice.geektime.bdsa.queue;
 
-import org.omg.CORBA.Object;
-
 // 环形队列实现
 public class CircularQueue<T> {
     private T[] queue;
